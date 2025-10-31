@@ -64,12 +64,12 @@ class DioLogInterceptor implements Interceptor {
     if (enablePrintLog) {
       NetOptions logNp =
           LogPoolManager.getInstance().logMap[resOpt.id.toString()]!;
-      log('request: url:${logNp.reqOptions?.url}');
-      log('request: method:${logNp.reqOptions?.method}');
-      log('request: params:${logNp.reqOptions?.params}');
-      log('request: data:${logNp.reqOptions?.data}');
-      log('request: duration:${getTimeStr1(logNp.reqOptions!.requestTime!)}');
-      log('response: ${toJson(logNp.resOptions?.data)}');
+      log('headers:${logNp.reqOptions?.headers}');
+      log('url:${logNp.reqOptions?.url}');
+      log('method:${logNp.reqOptions?.method}-requestTime:${getTimeStr1(logNp.reqOptions!.requestTime!)}');
+      log('params:${toJson(logNp.reqOptions?.params)}');
+      log('data:${toJson(logNp.reqOptions?.data)}');
+      log('${toJson(logNp.resOptions?.data)}');
     }
   }
 }

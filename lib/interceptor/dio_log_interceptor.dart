@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:dio/dio.dart';
 import 'package:dio_log/bean/err_options.dart';
 import 'package:dio_log/bean/net_options.dart';
@@ -47,8 +49,7 @@ class DioLogInterceptor implements Interceptor {
 
   ///响应体数据采集
   @override
-  Future onResponse(
-      Response response, ResponseInterceptorHandler handler) async {
+  Future onResponse(Response response, ResponseInterceptorHandler handler) async {
     saveResponse(response);
     return handler.next(response);
   }
@@ -62,13 +63,12 @@ class DioLogInterceptor implements Interceptor {
     resOpt.headers = response.headers.map;
     logManage?.onResponse(resOpt);
     if (enablePrintLog) {
-      NetOptions logNp =
-          LogPoolManager.getInstance().logMap[resOpt.id.toString()]!;
+      NetOptions logNp = LogPoolManager.getInstance().logMap[resOpt.id.toString()]!;
       log('headers:${logNp.reqOptions?.headers}');
-      log('url:${logNp.reqOptions?.url}');
       log('method:${logNp.reqOptions?.method}-requestTime:${getTimeStr1(logNp.reqOptions!.requestTime!)}');
-      log('params:${toJson(logNp.reqOptions?.params)}');
-      log('data:${toJson(logNp.reqOptions?.data)}');
+      log('url:${logNp.reqOptions?.url}');
+      if (logNp.reqOptions?.params?.isNotEmpty == true) log('params:${JsonEncoder.withIndent('       ').convert(logNp.reqOptions?.params)}');
+      if (logNp.reqOptions?.data != null) log('data:${JsonEncoder.withIndent('       ').convert(logNp.reqOptions?.data)}');
       log('${toJson(logNp.resOptions?.data)}');
     }
   }

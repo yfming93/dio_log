@@ -67,8 +67,10 @@ class DioLogInterceptor implements Interceptor {
       log('headers:${logNp.reqOptions?.headers}');
       log('method:${logNp.reqOptions?.method}-requestTime:${getTimeStr1(logNp.reqOptions!.requestTime!)}');
       log('url:${logNp.reqOptions?.url}');
-      if (logNp.reqOptions?.params?.isNotEmpty == true) log('params:${JsonEncoder.withIndent('       ').convert(logNp.reqOptions?.params)}');
-      if (logNp.reqOptions?.data != null) log('data:${JsonEncoder.withIndent('       ').convert(logNp.reqOptions?.data)}');
+      // if (logNp.reqOptions?.params?.isNotEmpty == true) log('params:${JsonEncoder.withIndent('       ').convert(logNp.reqOptions?.params)}');
+      if (logNp.reqOptions?.params?.isNotEmpty == true) log('params:${json.encode(logNp.reqOptions?.params)}');
+      // if (logNp.reqOptions?.data != null) log('data:${JsonEncoder.withIndent('       ').convert(logNp.reqOptions?.data)}');
+      if (logNp.reqOptions?.data != null) log('data:${json.encode(logNp.reqOptions?.data)}');
       log('${toJson(logNp.resOptions?.data)}');
     }
   }

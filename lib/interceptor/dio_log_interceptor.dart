@@ -13,7 +13,7 @@ class DioLogInterceptor implements Interceptor {
   LogPoolManager? logManage;
 
   ///是否打印日志到控制台
-  static bool enablePrintLog = false;
+  static bool enablePrintLog = true;
 
   DioLogInterceptor() {
     logManage = LogPoolManager.getInstance();
